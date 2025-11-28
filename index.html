@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
+  <title>TC Designs</title>
+    <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: #111; /* Fondo oscuro para evitar fondo blanco visible */
+    }
+
+    .slider-fade {
+    position: relative;
+    width: 100%;
+    height: auto;
+    }
+
+    .slider-img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    border-radius: 1.5rem;
+    z-index: 1;
+    }
+
+    .slider-img.active {
+    opacity: 1;
+    z-index: 2;
+    }
+
+    /* Elimina o comenta esta parte para quitar hover */
+    /*
+    .imagen-manufactura img:hover {
+    transform: scale(1.05);
+    }
+    */
+
+
+    /* Texto principal estilo */
+    .textoprincipal {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #222;
+    }
+  </style>
+
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBUHpYxwb5AEsarbjI1HUARe881CuxXGaE",
+      authDomain: "tc-designs-f9ed9.firebaseapp.com",
+      projectId: "tc-designs-f9ed9",
+      storageBucket: "tc-designs-f9ed9.firebasestorage.app",
+      messagingSenderId: "938316691839",
+      appId: "1:938316691839:web:db3c90e4fb791a4c6e024a",
+      measurementId: "G-V1DM9EDGSV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    window.firebaseAuth = auth;
+  </script>
+
+    <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+
+
+
+
+
+
+
+
+<!-- Modal personalizado -->
+<div id="customAlert" class="modal">
+  <div class="modal-content">
+    <div class="alert-title"></div>
+    <div class="alert-message"></div>
+    <button id="alertBtn">Aceptar</button>
+  </div>
+</div>
+
+
+
+<script>
+(function() {
+  const originalAlert = window.alert;
+
+  window.alert = function(message) {
+    // Aquí defines el título fijo
+    const title = "TC Designs";
+
+    document.querySelector(".alert-title").textContent = title;
+    document.querySelector(".alert-message").textContent = message;
+    document.getElementById("customAlert").style.display = "block";
+
+    document.getElementById("alertBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+  };
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+  <!-- HERO -->
+  <main>
+    <section id="hero">
+      <h1>CRECE CON LOS MEJORES</h1>
+      <p>¡Eleva la calidad de tu marca!</p>
+      <div class="button-container">
+        <button class="btn_desings"><a href="pedido.html">Pedidos</a></button>
+        <button class="btn_videos"><a href="descargas.html">Descargas</a></button>
+      </div>
+
+      <video id="introVideo"
+        onloadeddata="this.style.opacity='0.4'"
+        autoplay muted playsinline loop>
+        <source src="optimized videos/Cap Master.mp4" type="video/mp4" />
+      </video>
+    </section>
+  </main>
+
+
+  <div class="textoprincipal">
+    <h1>¿Qué es TC Designs?</h1>
+    <p>
+      TC Designs es la mejor opción para la creación de gorras, nos apasiona crear diseños 100% originales e innovadores, empezando desde cero. Transformamos tus bocetos e ideas en auténticas obras de arte, asegurándonos de que cada diseño sea único y refleje tu visión. Nos especializamos en crear diseños en 2D y animaciones en 3D que dan vida a cada detalle de tus gorras. Aquí, no creemos en copiar, sino en innovar, ofreciendo propuestas frescas y creativas que realmente se destacan. ¡Permítenos convertir tu idea en un diseño exclusivo que hable por sí mismo!
+    </p>
+  </div>
+
+  <!-- CARRUSEL DE IMÁGENES -->
+  <div class="slider-container">
+    <div class="slider-fade">
+      <img
+        src="images/Technical Sheet 1.jpg"
+        alt="Manufactura 1"
+        class="slider-img active"
+      />
+      <img src="images/Technical Sheet 2.jpg" alt="Manufactura 2" class="slider-img" />
+      <img src="images/Technical Sheet 3.jpg" alt="Manufactura 3" class="slider-img" />
+    </div>
+  </div>
+
+
+
+
+
+<!-- ✅ POPUP DE LOGIN ACTUALIZADO -->
+<div class="Chatgpt-popup-overlay" id="login-popup" style="display: none;">
+  <div class="Chatgpt-popup-content">
+    
+    <!-- CABECERA COMPLETA NEGRA -->
+    <div class="Chatgpt-popup-header">
+      <h2>¡DESBLOQUEA TODO!</h2>
+      <!-- ✅ TACHITA FUNCIONAL -->
+      <i class="fa-solid fa-xmark Chatgpt-close-icon" id="closeLoginPopup"></i>
+    </div>
+
+    <!-- CUERPO BLANCO -->
+    <div class="Chatgpt-popup-body">
+      <p><strong>Inicia sesión</strong> para acceder a realizar pedidos y contenido exclusivo en las descargas</p>
+
+      <!-- ✅ CAMPOS CON IDS CORRECTOS -->
+      <div style="margin-top: 1rem;">
+        <input type="email" id="loginEmail" class="Chatgpt-input-invertido" placeholder="Correo electrónico" />
+        <input type="password" id="loginPassword" class="Chatgpt-input-invertido" placeholder="Contraseña" />
+      </div>
+
+      <!-- ✅ BOTÓN CON ID FUNCIONAL -->
+      <button id="loginButton" class="Chatgpt-btn-negro">Iniciar sesión</button>
+
+      <p><a href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a></p>
+      <p>¿No tienes cuenta? <a href="registro.html" class="Chatgpt-link-subrayado">Registrarse</a></p>
+
+      <!-- ✅ CHECKBOX FUNCIONAL -->
+      <label class="Chatgpt-checkbox-container">
+        <input type="checkbox" id="dontShowAgain"> No volver a mostrar
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- 🔄 Script de Login y lógica -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="auth.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- FOOTER -->
+  <footer class="pie-página">
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a
+            href="index.html"
+            class="Texto-TONYS-CHANNEL"
+            style="color: white; text-decoration: none"
+            ><h1>TC Designs</h1></a
+          >
+        </figure>
+      </div>
+      <div class="box">
+        <a href="contact.html" class="Encha-chat" style="color: white"
+          ><h1>Lista</h1></a
+        >
+      </div>
+      <div class="box">
+        <h1>Síguenos</h1>
+      </div>
+    </div>
+    <div class="red-social">
+      <a
+        href="https://www.tiktok.com/@tc.desings"
+        class="fab fa-tiktok"
+        target="_blank"
+      ></a>
+      <a
+        href="https://www.instagram.com/tc.desings/"
+        class="fab fa-instagram"
+        target="_blank"
+      ></a>
+    </div>
+    <div class="grupo-2">
+      <small
+        >&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small
+      >
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+
+  <script>
+
+    // Carrusel fade infinito
+    const slides = document.querySelectorAll(".slider-img");
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 5000);
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

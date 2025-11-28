@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Pedido</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- POPUP -->
+<div id="popuppedidos-container">
+  <div id="popuppedidos-box">
+    <div id="popuppedidos-header">
+      <h2>¡HAZ TU PEDIDO!</h2>
+      <i class="fa-solid fa-xmark" id="popuppedidos-close"></i>
+    </div>
+    <div id="popuppedidos-content">
+      <p>Para mandar un pedido es necesario <strong>iniciar sesión</strong></p>
+      <input type="email" id="popuppedidos-email" class="popuppedidos-input" placeholder="Correo electrónico">
+      <input type="password" id="popuppedidos-password" class="popuppedidos-input" placeholder="Contraseña">
+      <button id="popuppedidos-button">Iniciar sesión</button>
+      <div class="popuppedidos-register">
+        ¿No tienes cuenta? <a id="popuppedidos-register-link">Registrarse</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Configuración Firebase
+  const popuppedidosConfig = {
+    apiKey: "AIzaSyBUHpYxwb5AEsarbjI1HUARe881CuxXGaE",
+    authDomain: "tc-designs-f9ed9.firebaseapp.com",
+    projectId: "tc-designs-f9ed9",
+    storageBucket: "tc-designs-f9ed9.firebasestorage.app",
+    messagingSenderId: "938316691839",
+    appId: "1:938316691839:web:db3c90e4fb791a4c6e024a",
+    measurementId: "G-V1DM9EDGSV"
+  };
+  firebase.initializeApp(popuppedidosConfig);
+  const popuppedidosAuth = firebase.auth();
+
+
+
+<!-- (arriba del archivo mantiene todo igual; solo muestro la zona modificada) -->
+
+  // ... configuración firebase y demás (SIN CAMBIOS) ...
+
+  // Botón iniciar sesión
+  document.getElementById("popuppedidos-button").addEventListener("click", () => {
+    const email = document.getElementById("popuppedidos-email").value;
+    const password = document.getElementById("popuppedidos-password").value;
+
+    if (!email || !password) {
+      alert("Completa todos los campos.");
+      return;
+    }
+
+    popuppedidosAuth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // userCredential.user es el usuario autenticado
+        const user = userCredential.user;
+        if (!user.emailVerified) {
+          // Si no está verificado, cerramos sesión y mostramos alerta
+          popuppedidosAuth.signOut().then(() => {
+            alert("Verifica tu Email para logearte");
+          });
+          return;
+        }
+
+        // Si está verificado, permitimos el login
+        alert("Sesión iniciada");
+        document.getElementById("popuppedidos-container").style.display = "none";
+      })
+      .catch(err => {
+        alert("Error al iniciar sesión, " + "asegúrate de colocar los datos correctos");
+      });
+  });
+
+  // Link registro (sin cambios)
+  document.getElementById("popuppedidos-register-link").addEventListener("click", () => {
+    window.location.href = "registro.html";
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal personalizado -->
+<div id="customAlert" class="modal">
+  <div class="modal-content">
+    <div class="alert-title"></div>
+    <div class="alert-message"></div>
+    <button id="alertBtn">Aceptar</button>
+  </div>
+</div>
+
+
+
+<script>
+(function() {
+  const originalAlert = window.alert;
+
+  window.alert = function(message) {
+    // Aquí defines el título fijo
+    const title = "TC Designs";
+
+    document.querySelector(".alert-title").textContent = title;
+    document.querySelector(".alert-message").textContent = message;
+    document.getElementById("customAlert").style.display = "block";
+
+    document.getElementById("alertBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+  };
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Aquí Chat, agrega lo que necesites, este es como la plantilla para la pagina de descargas y la de registrarse y todas las que quieras hacer aparte del index-->
+
+    <section id="pedido-section">
+        <h2>Realizar Pedido</h2>
+      <div class="switch-container">
+          <button id="switchIndividuales" class="switch-btn active">Individuales</button>
+          <button id="switchPaquetes" class="switch-btn">Paquetes</button>
+      </div>
+
+
+
+      <div id="paquetes-section">
+
+      <!-- PAQUETE EMPRENDEDOR -->
+      <div class="paquete-card">
+          <div class="paquete-titulo">Paquete Emprendedor</div>
+
+          <div class="paquete-precio">
+              $2300 <span class="precio-original">$3300</span>
+          </div>
+
+          <div class="paquete-incluye">
+              Incluye:<br>
+              1 Diseño de gorra<br>
+              1 Video 3D
+          </div>
+
+          <button class="btn_download paquete-comprar"
+              data-paquete="Emprendedor"
+              data-precio="2300"
+              data-original="3300"
+              data-includes="1 Diseño de gorra, 1 Video 3D">
+              Comprar
+          </button>
+      </div>
+
+      <!-- PAQUETE FULL SET -->
+      <div class="paquete-card">
+          <div class="paquete-titulo">Paquete Full Set</div>
+
+          <div class="paquete-precio">
+              $4000 <span class="precio-original">$6400</span>
+          </div>
+
+          <div class="paquete-incluye">
+              Incluye:<br>
+              1 Diseño de gorra<br>
+              1 Video 3D<br>
+              1 Caja<br>
+              1 Cubrepolvos<br>
+              1 Llavero
+          </div>
+
+          <button class="btn_download paquete-comprar"
+              data-paquete="Full Set"
+              data-precio="4000"
+              data-original="6400"
+              data-includes="1 Diseño de gorra, 1 Video 3D, 1 Caja, 1 Cubrepolvos, 1 Llavero">
+              Comprar
+          </button>
+      </div>
+
+      <!-- PAQUETE EMERGENTE -->
+      <div class="paquete-card">
+          <div class="paquete-titulo">Paquete Emergente</div>
+
+          <div class="paquete-precio">
+              $1400 <span class="precio-original">$1900</span>
+          </div>
+
+          <div class="paquete-incluye">
+              Incluye:<br>
+              1 Diseño<br>
+              1 Logo de marca
+          </div>
+
+          <button class="btn_download paquete-comprar"
+              data-paquete="Emergente"
+              data-precio="1300"
+              data-original="1900"
+              data-includes="1 Diseño, 1 Logo de marca">
+              Comprar
+          </button>
+      </div>
+
+      <!-- PAQUETE MI SEGUNDO DROP -->
+      <div class="paquete-card">
+          <div class="paquete-titulo">Paquete Mi Segundo Drop</div>
+
+          <div class="paquete-precio">
+              $5500 <span class="precio-original">$7000</span>
+          </div>
+
+          <div class="paquete-incluye">
+              Incluye:<br>
+              2 Diseños de gorras<br>
+              1 Video 3D<br>
+              2 Cajas<br>
+              2 Cubrepolvos
+          </div>
+
+          <button class="btn_download paquete-comprar"
+              data-paquete="Mi Segundo Drop"
+              data-precio="5400"
+              data-original="7000"
+              data-includes="2 Diseños de gorras, 1 Video 3D, 2 Cajas, 2 Cubrepolvos">
+              Comprar
+          </button>
+      </div>
+
+
+  </div>
+
+
+
+
+
+
+
+        <form id="pedido-form">
+            <div>
+                <label>Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <!-- Primer renglón -->
+            <div class="pedido-row">
+                <div>
+                    <label>Diseños de gorras:</label>
+                    <input type="number" min="0" name="gorras" placeholder="0" data-precio="1300">
+                </div>
+                <div>
+                    <label>Videos:</label>
+                    <input type="number" min="0" name="videos" placeholder="0" data-precio="2000">
+                </div>
+                <div>
+                    <label>Flyers:</label>
+                    <input type="number" min="0" name="flyers" placeholder="0" data-precio="1000">
+                </div>
+            </div>
+
+            <!-- Segundo renglón -->
+            <div class="pedido-row">
+                <div>
+                    <label>Otros: (cajas, cubrepolvos, llaveros, etc)</label>
+                    <input type="number" min="0" name="otros" placeholder="0" data-precio="700">
+                </div>
+            </div>
+
+            <!-- Mensaje adicional -->
+            <div>
+                <label for="comentarios">Comentarios adicionales</label>
+                <textarea id="comentarios" name="comentarios" placeholder="Detalles del pedido..." required></textarea>
+            </div>
+
+            <!-- Botones -->
+            <div class="botones-centro">
+                <button type="button" id="btnCosto" class="btn-costo">
+                    Costo total (estimado): $<span id="precioTotal">0.00</span> MXN <br>
+                    Anticipo (50%): $<span id="precioAnticipo">0.00</span> MXN <br>
+                    <span style="font-weight:bold; color:#00b300;">
+                        Te ahorras: $<span id="precioAhorro">0.00</span> MXN
+                    </span>
+                </button>
+                <button type="submit" id="btnEnviarPedido">Enviar Pedido</button>
+            </div>
+        </form>
+    </section>
+
+
+<div id="popup-paquete" class="modal">
+    <div class="modal-content paquete-modal">
+        <h2 id="paqueteTitulo"></h2>
+
+        <h2 id="paqueteInvisible"></h2>
+
+        <p id="paqueteIncluye">  </p>
+
+        <label>Nombre:</label>
+        <input type="text" id="paqueteNombre" class="modal-input">
+
+        <label>Comentarios adicionales:</label>
+        <textarea id="paqueteComentarios" class="modal-textarea" placeholder="Detalles del pedido..." required></textarea>
+
+
+        <p><strong>Total:</strong> $<span id="paqueteTotal"></span> MXN</p>
+        <p><strong>Anticipo (50%):</strong> $<span id="paqueteAnticipo"></span> MXN</p>
+
+        <button id="btnConfirmarPaquete" class="btn_download">Confirmar compra</button>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+(function(){
+  // --- Relleno del nombre desde Firebase (asegura que quede siempre) ---
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      const nombreInput = document.getElementById("nombre");
+      if (nombreInput) nombreInput.value = user.displayName || user.email || "Usuario";
+
+      const name = user.displayName || user.email || "Usuario";
+      const usernameDesktop = document.getElementById("navbar-username");
+      const usernameMobile = document.getElementById("navbar-username-mobile");
+      if (usernameDesktop) usernameDesktop.textContent = name;
+      if (usernameMobile) usernameMobile.textContent = name;
+      localStorage.setItem("displayName", name);
+    }
+  });
+
+  // --- Selecciones y spans ---
+  const inputs = document.querySelectorAll("#pedido-form input[type='number']");
+  const precioTotalSpan = document.getElementById("precioTotal");
+  const precioAnticipoSpan = document.getElementById("precioAnticipo");
+
+  // --- Función que calcula total, actualiza UI y devuelve el total ---
+  function calcularTotal() {
+    let total = 0;
+    let esRegistrado = firebase.auth().currentUser ? true : false;
+
+    const ahorroSpan = document.getElementById("precioAhorro").parentElement;
+
+    // Mostrar u ocultar el texto de ahorro
+    if (!esRegistrado) {
+      ahorroSpan.style.display = "none";
+    } else {
+      ahorroSpan.style.display = "block";
+    }
+
+    inputs.forEach(input => {
+      const cantidad = parseInt(input.value) || 0;
+      const precioBase = parseFloat(input.getAttribute("data-precio")) || 0;
+
+      let precioFinal = precioBase;
+
+      // 👉 PRECIOS ESPECIALES (SOLO SI ESTÁ REGISTRADO)
+      if (esRegistrado) {
+        if (input.name === "gorras") precioFinal = 1000;   // o 999 si decides .99
+        if (input.name === "videos") precioFinal = 1500;   // o 1499
+        if (input.name === "flyers") precioFinal = 800;    // o 799
+        if (input.name === "otros")  precioFinal = 600;    // o 599
+      }
+
+      total += cantidad * precioFinal;
+    });
+
+    // Actualizar UI
+    precioTotalSpan.textContent = total.toFixed(2);
+    precioAnticipoSpan.textContent = (total / 2).toFixed(2);
+
+    // Cálculo del ahorro SOLO si está logeado
+    if (esRegistrado) {
+      let ahorro = 0;
+      inputs.forEach(input => {
+        const cantidad = parseInt(input.value) || 0;
+        const precioBase = parseFloat(input.getAttribute("data-precio")) || 0;
+
+        let precioDescuento = precioBase;
+
+        if (input.name === "gorras") precioDescuento = 1000;
+        if (input.name === "videos") precioDescuento = 1500;
+        if (input.name === "flyers") precioDescuento = 800;
+        if (input.name === "otros")  precioDescuento = 600;
+
+        ahorro += cantidad * (precioBase - precioDescuento);
+      });
+
+      document.getElementById("precioAhorro").textContent = ahorro.toFixed(2);
+    }
+
+    return total;
+  }
+
+
+
+  // Recalcular cuando el usuario cambie cantidades
+  inputs.forEach(input => input.addEventListener("input", calcularTotal));
+  // Calcular al cargar (por si hay valores precargados)
+  calcularTotal();
+
+  // Etiquetas amigables para el mensaje de WhatsApp
+  const etiquetas = {
+    gorras: "Diseños de gorras",
+    videos: "Videos",
+    flyers: "Flyers",
+    otros: "Otros"
+  };
+
+  // --- Envío del formulario ---
+  document.getElementById("pedido-form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim() || "Cliente";
+    const total = calcularTotal(); // nos aseguramos que esté actualizado
+
+    // Validación: al menos 1 producto
+    if (total === 0) {
+      alert("Debes seleccionar al menos 1 producto");
+      return;
+    }
+
+    // Construir mensaje
+    let mensaje = `*Nuevo pedido de:* ${nombre}\n\n`;
+    const formData = new FormData(this);
+    formData.forEach((valor, campo) => {
+      if ((campo === "gorras" || campo === "videos" || campo === "flyers" || campo === "otros") && valor && Number(valor) > 0) {
+        const label = etiquetas[campo] || campo;
+        mensaje += `• ${label}: ${valor}\n`;
+      }
+    });
+
+    const comentarios = document.getElementById("comentarios").value.trim();
+    if (comentarios) {
+      mensaje += `\n*Comentarios:* ${comentarios}\n`;
+    }
+
+    mensaje += `\n*Total:* $${total.toFixed(2)} MXN`;
+    mensaje += `\n*Anticipo (50%):* $${(total / 2).toFixed(2)} MXN`;
+
+    const telefono = "526691233019";
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+    // Abrir WhatsApp en nueva pestaña y redirigir a gracias.html en la actual
+    window.open(url, "_blank");
+    window.location.href = "gracias.html";
+  });
+
+})();
+
+
+const switchIndividuales = document.getElementById("switchIndividuales");
+const switchPaquetes = document.getElementById("switchPaquetes");
+const individualesSection = document.getElementById("pedido-form");
+const paquetesSection = document.getElementById("paquetes-section");
+
+// INICIO → Individuales activado
+individualesSection.style.display = "block";
+paquetesSection.style.display = "none";
+
+switchIndividuales.onclick = () => {
+    individualesSection.style.display = "block";   // mostrar individuales
+    paquetesSection.style.display = "none";        // ocultar paquetes
+
+    switchIndividuales.classList.add("active");
+    switchPaquetes.classList.remove("active");
+};
+
+switchPaquetes.onclick = () => {
+    individualesSection.style.display = "none";    // ocultar individuales
+    paquetesSection.style.display = "grid";        // mostrar paquetes (grid)
+    
+    switchPaquetes.classList.add("active");
+    switchIndividuales.classList.remove("active");
+};
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   POPUP DE PAQUETES — FINAL
+   ========================= */
+
+const popup = document.getElementById("popup-paquete");
+const popupContent = document.querySelector(".paquete-modal");
+let paqueteSeleccionado = {};
+
+document.querySelectorAll(".paquete-comprar").forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // Mostrar popup correctamente siempre
+        popup.style.display = "flex";
+
+        paqueteSeleccionado = {
+            nombre: btn.dataset.paquete,
+            precio: btn.dataset.precio,
+            original: btn.dataset.original,
+            includes: btn.dataset.includes || ""
+        };
+
+        document.getElementById("paqueteTitulo").textContent =
+            "Paquete " + paqueteSeleccionado.nombre;
+        
+        document.getElementById("paqueteInvisible").textContent =
+            "* ";
+
+        document.getElementById("paqueteIncluye").textContent =
+            "Incluye: " + paqueteSeleccionado.includes;
+
+        document.getElementById("paqueteTotal").textContent = paqueteSeleccionado.precio;
+        document.getElementById("paqueteAnticipo").textContent = paqueteSeleccionado.precio / 2;
+
+        // AUTORELLENAR NOMBRE SI YA ESTÁ REGISTRADO
+        const savedName = localStorage.getItem("displayName");
+        if (savedName) {
+            document.getElementById("paqueteNombre").value = savedName;
+        }
+
+        // Activar animación
+        setTimeout(() => {
+            popup.classList.add("active");
+            popupContent.classList.add("active");
+        }, 20);
+    });
+});
+
+
+// CONFIRMAR COMPRA → WHATSAPP
+document.getElementById("btnConfirmarPaquete").onclick = () => {
+
+    const nombre = document.getElementById("paqueteNombre").value;
+    const comentarios = document.getElementById("paqueteComentarios").value;
+
+    const mensaje = `
+*Pedido de Paquete ${paqueteSeleccionado.nombre}*
+Incluye:
+${paqueteSeleccionado.includes}
+
+Nombre: ${nombre}
+Comentarios: ${comentarios}
+
+Total: $${paqueteSeleccionado.precio} MXN
+Anticipo: $${paqueteSeleccionado.precio / 2} MXN
+`;
+
+    window.open(
+        "https://wa.me/526691233019?text=" + encodeURIComponent(mensaje),
+        "_blank"
+    );
+
+    cerrarPopup();
+};
+
+
+// CERRAR POPUP CON ANIMACIÓN
+function cerrarPopup() {
+    popup.classList.remove("active");
+    popupContent.classList.remove("active");
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 300);
+}
+
+// CLICK FUERA DEL POPUP
+popup.addEventListener("click", (e) => {
+    if (e.target === popup) cerrarPopup();
+});
+
+// ESC PARA CERRAR
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") cerrarPopup();
+});
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  <!-- Es el pie de página -->
+  <footer class="pie-página">
+      <div class="grupo-1">
+          <div class="box">
+              <figure>
+                  <a href=index.html class="Texto-TONYS-CHANNEL" style="color: rgb(255, 255, 255); text-decoration: none;">
+                      <h1>TC Designs</h1>
+                  </a>
+              </figure>
+          </div>
+          <div class="box">
+              <a href=contact.html class="Encha-chat" style="color: white; text-decoration: none;"><h1>Lista</h1></a>
+          </div>
+          <div class="box">
+              <h1>Síguenos</h1>
+          </div>
+      </div>
+      <div class="red-social">
+          <a href="https://www.tiktok.com/@tc.desings" class="fab fa-tiktok" target="_blank"></a>
+          <a href="https://www.instagram.com/tc.desings/" class="fab fa-instagram" target="_blank"></a>
+      </div>
+      <div class="grupo-2">
+          <small>&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small>
+      </div>
+  </footer>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="/Archivos/Js/Scripts.js"></script>
+  <script>
+      AOS.init();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</body>
+</html>

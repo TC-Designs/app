@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Videos</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+    <section id="videos">
+        <h1>Un Deleite de Apreciar</h1>
+        <p>En <strong>TC Designs</strong>, llevamos tus diseños de gorras a un nivel completamente nuevo con nuestros videos 3D. Ofrecemos dos tipos de animaciones para mostrar cada detalle de tus productos de manera espectacular. Nuestros videos 3D sencillos permiten rotar la gorra, presentando una versión realista que destaca cada uno de los elementos de tu diseño.</p>
+        
+        <p>Si buscas algo más impactante, nuestros videos 3D con ambientaciones te ofrecerán una animación impresionante que cautivará a quien la vea. Ya sea que necesites un toque sutil o algo totalmente visualmente sorprendente, tenemos la animación perfecta para ti. ¡Deja que tu gorra hable con una animación que la haga destacar aún más!</p>
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.galeria-videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 0.5rem; /* menos separación: 1rem Y, 0.5rem X */
+  justify-items: center;
+  padding: 10rem 15rem;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+.videocontaineree {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+.videocontaineree:hover {
+    transform: scale(1.05);
+
+}
+
+.video-tc {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+.video-tc:hover {
+    transform: scale(1.05);
+}
+
+/* Texto "Da clic para agrandar" */
+.video-label {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+
+/* Modal */
+.video-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+.video-modal video {
+  height: 90%;
+  width: auto;
+  aspect-ratio: 9/16;
+  border-radius: 20px;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+
+
+
+
+
+/* Tooltip */
+.videocontaineree::after {
+    content: "Haz clic sobre el video para agrandarlo";
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 1rem; /* más grande */
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+  transition: all 1s cubic-bezier(0.3, 0, 0, 1.0);
+}
+
+.videocontaineree.show-tooltip::after {
+    opacity: 1;
+}
+
+/* --- Responsive videos --- */
+@media (max-width: 1250px) {
+  .galeria-videos {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 5rem 5rem; /* menos padding en pantallas medianas */
+  }
+}
+
+@media (max-width: 650px) {
+  .galeria-videos {
+    grid-template-columns: 1fr;
+    padding: 3rem 2rem; /* aún menos padding en móviles */
+  }
+}
+
+@media (max-width: 400px) {
+  .galeria-videos {
+    grid-template-columns: 1fr;
+    margin-top: 20rem;
+    padding: 3rem 2rem; /* aún menos padding en móviles */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<section class="galeria-videos">
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster1.jpg">
+      <source src="optimized videos/Hut Caps.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster2.jpg">
+      <source src="optimized videos/Cap Master.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster3.jpg">
+      <source src="optimized videos/Gospel.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster4.jpg">
+      <source src="optimized videos/Scared Money.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster5.jpg">
+      <source src="optimized videos/El Borrego.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+
+  <div class="videocontaineree">
+    <video class="video-tc" autoplay muted loop playsinline preload="none" poster="media/videos/poster6.jpg">
+      <source src="optimized videos/Sadboyz.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">Da clic para<br>agrandar</div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="video-modal" id="videoModal">
+  <video autoplay controls playsinline></video>
+</div>
+
+<script>
+const modal = document.getElementById("videoModal");
+const modalVideo = modal.querySelector("video");
+
+
+document.querySelectorAll('.videocontaineree').forEach(container => {
+    container.addEventListener('mouseenter', () => {
+        container.classList.add('show-tooltip');
+        setTimeout(() => {
+            container.classList.remove('show-tooltip');
+        }, 1000);
+    });
+});
+
+
+
+
+document.querySelectorAll(".video-tc").forEach(video => {
+  video.addEventListener("click", () => {
+    modalVideo.src = video.querySelector("source").src;
+    modal.style.display = "flex";
+    modalVideo.play();
+  });
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+    modalVideo.pause();
+    modalVideo.src = "";
+  }
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <main>
+    
+    <!-- Es el pie de página -->
+    <footer class="pie-página">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href=index.html class="Texto-TONYS-CHANNEL" style="color: rgb(255, 255, 255); text-decoration: none;">
+                            <h1>TC Designs</h1>
+                        </a>
+                </figure>
+            </div>
+        <div class="box">
+            <a href=contact.html class="Encha-chat" style="color: white; text-decoration: none;"><h1>Lista</h1></a>
+        </div>
+            <div class="box">
+                <h1>Síguenos</h1>
+            </div>
+        </div>
+        <div class="red-social">
+            <a href="https://www.tiktok.com/@tc.desings" class="fab fa-tiktok" target="_blank"></a>
+            <a href="https://www.instagram.com/tc.desings/" class="fab fa-instagram" target="_blank"></a>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/Archivos/Js/Scripts.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

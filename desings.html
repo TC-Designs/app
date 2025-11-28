@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Diseños</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+    <!-- Aquí termina el NAVBAR-->
+
+    <!-- Aquí inicia el diseños principal de la página -->
+    <main>
+        <section id="designs">
+            <h1>De Ideas a Realidad</h1>
+            <p>En <strong>TC Designs</strong>, utilizamos herramientas de diseño avanzadas para transformar tus ideas en impresionantes diseños 2D y 3D. Ya sea que nos envíes un boceto o simplemente compartas tus ideas, nuestro equipo se encarga de digitalizarlas y llevarlas a su forma final, asegurando que cada detalle se perfeccione para cumplir con tus expectativas.</p>
+
+            <p>Nuestros diseños están listos para ser enviados a los manufacturantes, garantizando que el producto final cumpla con los más altos estándares de calidad. Nuestros clientes siempre quedan satisfechos con el resultado final, sabiendo que su visión se ha materializado de la manera que esperaban.</p>
+            
+            <div class="slider">
+                <div class="slides">
+                     <!-- TERCERA TANDA DE IMAGENES -->
+                    <div class="slide">
+                        <img src="images/The Cheese.png" alt="Stress Free" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Cerezo.png" alt="Garfield" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Nueva York.png" alt="Rico O Muerto" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/scream.jpg" alt="Scream" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Scared Money.png" alt="The Mask" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Nunca fue suerte.png" alt="Stress Free" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/LA Nuclear.png" alt="Garfield" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Pink Fire.png" alt="Rico O Muerto" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/Cross.png" alt="The Mask" class="user-image">
+                    </div>
+                    
+                    <!-- SEGUNDA TANDA DE IMAGENES-->
+
+                    <div class="slide">
+                        <img src="images/Josue Club.jpg" alt="Scream" class="user-image">
+                    </div>
+
+                    <div class="slide">
+                        <img src="images/RM.jpg" alt="Scream" class="user-image">
+                    </div>
+
+                    <div class="slide">
+                        <img src="images/Fire Hat.jpg" alt="Scream" class="user-image">
+                    </div>
+
+                    <div class="slide">
+                        <img src="images/Junior H.jpg" alt="Scream" class="user-image">
+                    </div>
+
+
+                    <div class="slide">
+                        <img src="images/world.jpg" alt="Stress Free" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/garfield.jpg" alt="Garfield" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/rico.jpg" alt="Rico O Muerto" class="user-image">
+                    </div>
+                    <div class="slide">
+                        <img src="images/The mask.jpg" alt="The Mask" class="user-image">
+                    </div>
+
+
+                </div>
+                <div class="controls">
+                    <button class="control prev"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="control next"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div class="indicators">
+                    <div class="indicator active"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </section>
+        <!-- Botón de ir hacia arriba -->
+        <div class="go-top-container">
+            <div class="go-top-button">
+                <i class="fa-solid fa-chevron-up"></i>
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+
+    <!-- Es el pie de página -->
+    <footer class="pie-página">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href=index.html class="Texto-TONYS-CHANNEL" style="color: rgb(255, 255, 255); text-decoration: none;">
+                            <h1>TC Designs</h1>
+                        </a>
+                </figure>
+            </div>
+        <div class="box">
+            <a href=contact.html class="Encha-chat" style="color: white; text-decoration: none;"><h1>Lista</h1></a>
+        </div>
+            <div class="box">
+                <h1>Síguenos</h1>
+            </div>
+        </div>
+        <div class="red-social">
+            <a href="https://www.tiktok.com/@tc.desings" class="fab fa-tiktok" target="_blank"></a>
+            <a href="https://www.instagram.com/tc.desings/" class="fab fa-instagram" target="_blank"></a>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/Archivos/Js/Scripts.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+</html>

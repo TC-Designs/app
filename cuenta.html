@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <title>Cuenta</title>
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <!-- Aquí es el logo de la página -->
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <!-- Aquí termina el logo de la página -->
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+            
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+
+  <script>
+    const toggleBtn = document.querySelector(".toggle_btn");
+    const toggleBtnIcon = document.querySelector(".toggle_btn i");
+    const dropDownMenu = document.querySelector(".dropdown_menu");
+
+    toggleBtn.onclick = function () {
+      dropDownMenu.classList.toggle("open");
+      const isOpen = dropDownMenu.classList.contains("open");
+      toggleBtnIcon.classList = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    };
+  </script>
+
+
+
+
+
+
+<!-- Modal personalizado -->
+<div id="customAlert" class="modal">
+  <div class="modal-content">
+    <div class="alert-title"></div>
+    <div class="alert-message"></div>
+    <button id="alertBtn">Aceptar</button>
+  </div>
+</div>
+
+
+
+<script>
+(function() {
+  const originalAlert = window.alert;
+
+  window.alert = function(message) {
+    // Aquí defines el título fijo
+    const title = "TC Designs";
+
+    document.querySelector(".alert-title").textContent = title;
+    document.querySelector(".alert-message").textContent = message;
+    document.getElementById("customAlert").style.display = "block";
+
+    document.getElementById("alertBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+  };
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- CUERPO DE LA PÁGINA DE CUENTA -->
+    <main class="cuenta-container">
+    <div class="cuenta-box">
+        <h2 class="cuenta-titulo">Mi Cuenta</h2>
+
+        <p class="cuenta-etiqueta">Nombre de Usuario:</p>
+        <input type="text" id="display-name" placeholder="Tu nombre" class="cuenta-input" />
+
+        <p class="cuenta-etiqueta">Correo:</p>
+        <input type="email" id="user-email" class="cuenta-input" disabled />
+
+        <p class="cuenta-etiqueta">Contraseña:</p>
+        <div class="cuenta-password-container">
+            <input type="password" id="user-password" class="cuenta-input" placeholder="Tu contraseña" />
+            <button type="button" class="cuenta-mostrar-btn" onclick="togglePassword()">Mostrar</button>
+        </div>
+
+
+        <button id="update-profile" class="cuenta-guardar-btn">Guardar cambios</button><br><br>
+
+        <button id="logout-btn" class="cuenta-guardar-btn1">Cerrar sesión</button>
+
+    </div>
+    </main>
+
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="pie-página">
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a href="index.html" class="Texto-TONYS-CHANNEL"><h1>TC Designs</h1></a>
+        </figure>
+      </div>
+      <div class="box"><a href="contact.html" class="Encha-chat"><h1>Lista</h1></a></div>
+      <div class="box"><h1>Síguenos</h1></div>
+    </div>
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings" class="fab fa-tiktok" target="_blank"></a>
+      <a href="https://www.instagram.com/tc.desings/" class="fab fa-instagram" target="_blank"></a>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBUHpYxwb5AEsarbjI1HUARe881CuxXGaE",
+      authDomain: "tc-designs-f9ed9.firebaseapp.com",
+      projectId: "tc-designs-f9ed9",
+      storageBucket: "tc-designs-f9ed9.appspot.com",
+      messagingSenderId: "938316691839",
+      appId: "1:938316691839:web:db3c90e4fb791a4c6e024a",
+      measurementId: "G-V1DM9EDGSV"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <!-- LÓGICA DE CUENTA -->
+  <script>
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("user-email").value = user.email;
+        document.getElementById("display-name").value = user.displayName || "";
+
+        if (user.photoURL) {
+          document.getElementById("profile-pic").src = user.photoURL;
+        }
+
+        document.getElementById("update-profile").addEventListener("click", () => {
+          const newName = document.getElementById("display-name").value;
+          user.updateProfile({ displayName: newName }).then(() => {
+            alert("Nombre actualizado");
+          });
+        });
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+  <script>
+    function togglePassword() {
+        const passwordInput = document.getElementById("user-password");
+        const toggleBtn = document.querySelector(".cuenta-mostrar-btn");
+        
+        if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleBtn.textContent = "Ocultar";
+        } else {
+        passwordInput.type = "password";
+        toggleBtn.textContent = "Mostrar";
+        }
+    }
+    </script>
+    <script>
+      document.getElementById("logout-btn").addEventListener("click", function () {
+        firebase.auth().signOut().then(() => {
+          localStorage.removeItem("displayName"); // 🔴 Borrar el nombre guardado
+          window.location.href = "index.html";    // o donde sea que redirijas
+          // Redirige al registro después de cerrar sesión
+          window.location.href = "registro.html";
+        }).catch((error) => {
+          console.error("Error al cerrar sesión:", error);
+        });
+      });
+    </script>
+
+</body>
+</html>

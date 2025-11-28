@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrate</title>
+    <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive -->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+<!-- Modal personalizado -->
+<div id="customAlert" class="modal">
+  <div class="modal-content">
+    <div class="alert-title"></div>
+    <div class="alert-message"></div>
+    <button id="alertBtn">Aceptar</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const originalAlert = window.alert;
+
+  window.alert = function(message) {
+    const title = "TC Designs";
+
+    document.querySelector(".alert-title").textContent = title;
+    document.querySelector(".alert-message").textContent = message;
+    document.getElementById("customAlert").style.display = "block";
+
+    document.getElementById("alertBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+  };
+})();
+</script>
+
+  <!-- FORMULARIO DE REGISTRO -->
+  <main style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 4rem 1rem 0 1rem;">
+    
+    
+  <section id="designs8">
+    <h1>Regístrate</h1>
+  </section>
+  <p style="font-size: 1rem; margin-top: 1rem; text-align: center;">
+    Crea tu cuenta ahora, en caso de tener una 
+    <a href="descargas.html" id="openLoginFromRegister" style="color: #007bff; cursor: pointer;">Inicia sesión</a>
+  </p>
+
+    <div class="Chatgpt-popup-content" style="margin-bottom: 4rem;">
+      <div class="Chatgpt-popup-body">
+        <input type="text" id="nombre" class="Chatgpt-input-invertido" placeholder="Nombre de Usuario" required>
+        <input type="email" id="correo" class="Chatgpt-input-invertido" placeholder="Correo electrónico" required>
+        <input type="password" id="password" class="Chatgpt-input-invertido" placeholder="Contraseña" required>
+        <input type="password" id="confirmar" class="Chatgpt-input-invertido" placeholder="Confirmar contraseña" required>
+        <input type="tel" id="telefono" class="Chatgpt-input-invertido" placeholder="Número de teléfono (+34... o +52...)" required>
+
+        <div id="codigo-verificacion-container" style="display:none;">
+          <input type="text" id="codigo" class="Chatgpt-input-invertido" placeholder="Código de verificación" required>
+          <button type="button" class="Chatgpt-btn-negro" onclick="verificarCodigo()">Verificar Código</button>
+        </div>
+
+        <div id="recaptcha-container" style="margin-top: 10px;"></div>
+
+        <!-- Botón llama a la función registrarUsuario (la dejamos como está para compatibilidad) -->
+        <button class="Chatgpt-btn-negro" onclick="registrarUsuario()">Registrarse</button>
+        <br><br>
+        <a href="index.html">
+          <button class="Chatgpt-btn-negro">Volver al inicio</button>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="pie-página">
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a href="index.html" class="Texto-TONYS-CHANNEL" style="color: rgb(255, 255, 255); text-decoration: none;">
+            <h1>TC Designs</h1>
+          </a>
+        </figure>
+      </div>
+      <div class="box">
+        <a href="contact.html" class="Encha-chat" style="color: white; text-decoration: none;"><h1>Lista</h1></a>
+      </div>
+      <div class="box">
+        <h1>Síguenos</h1>
+      </div>
+    </div>
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings" class="fab fa-tiktok" target="_blank"></a>
+      <a href="https://www.instagram.com/tc.desings/" class="fab fa-instagram" target="_blank"></a>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2025 <b>TC Designs by TONYS</b> All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- FIREBASE (modular) - lógica de registro actualizada para enviar verificación y NO dejar logueado -->
+  <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        updateProfile,
+        sendEmailVerification,
+        signOut
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUHpYxwb5AEsarbjI1HUARe881CuxXGaE",
+        authDomain: "tc-designs-f9ed9.firebaseapp.com",
+        projectId: "tc-designs-f9ed9",
+        storageBucket: "tc-designs-f9ed9.firebasestorage.app",
+        messagingSenderId: "938316691839",
+        appId: "1:938316691839:web:db3c90e4fb791a4c6e024a",
+        measurementId: "G-V1DM9EDGSV"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.registrarUsuario = async function () {
+        const nombre = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmar = document.getElementById('confirmar').value;
+        const telefono = document.getElementById('telefono').value.trim();
+
+        if (!nombre || !correo || !password || !confirmar || !telefono) {
+          alert('Por favor, completa todos los campos');
+          return;
+        }
+
+        if (password !== confirmar) {
+          alert('Las contraseñas no coinciden');
+          return;
+        }
+
+        // ✅ Lista de palabras clave permitidas (acepta corporativos)
+        const palabrasClavePermitidas = [
+          "gmail",
+          "hotmail",
+          "outlook",
+          "yahoo",
+          "icloud",
+          "protonmail",
+          "aol",
+          "live",
+          "msn",
+          "me.com",
+          "pm.me",
+          "gmx",
+          "zoho"
+        ];
+
+        const dominioCorreo = correo.split('@')[1]?.toLowerCase();
+        if (!palabrasClavePermitidas.some(palabra => dominioCorreo.includes(palabra))) {
+          alert("Utiliza un correo autorizado, o se permite el uso de correos temporales");
+          return;
+        }
+
+        try {
+          // Crear usuario en Auth
+          const userCredential = await createUserWithEmailAndPassword(auth, correo, password);
+
+          // Actualizar displayName en Auth
+          await updateProfile(userCredential.user, { displayName: nombre });
+
+          // Guardar datos adicionales en Firestore
+          await setDoc(doc(db, "usuarios", userCredential.user.uid), {
+            nombre: nombre,
+            email: correo,
+            telefono: telefono,
+            fechaRegistro: new Date()
+          });
+
+          // Enviar correo de verificación
+          await sendEmailVerification(userCredential.user);
+
+          // Mostrar alerta
+          alert('Hemos mandado un Link de Verificación a tu Email');
+
+          // Cerrar sesión
+          await signOut(auth);
+
+          // Esperar 7 segundos y redirigir a pedido.html
+          setTimeout(() => {
+            window.location.href = "pedido.html";
+          }, 7000);
+
+        } catch (error) {
+          alert('Error al registrar: ' + error.message);
+        }
+      };
+  </script>
+
+
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="/Archivos/Js/Scripts.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
