@@ -3,7 +3,7 @@
 
 // CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
-  apiKey: "AIzaSyBUHpYxwb5AEsarbjI1HUARe881CuxXGaE",
+  apiKey: "AIzaSyAVsAPnrHUgdstSAVpEVwLAveJ_QGBwdew",
   authDomain: "tc-designs-f9ed9.firebaseapp.com",
   projectId: "tc-designs-f9ed9",
   storageBucket: "tc-designs-f9ed9.firebasestorage.app",
