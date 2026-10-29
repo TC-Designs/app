@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <title>Lista</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="contact.html">Lista</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="contact.html">Lista</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+    <!-- Aquí inicia el diseños principal de la página -->
+    <main>
+        <section id="hero">
+            <h1>¡CONSULTA TU LUGAR ABAJO!</h1>
+            <p>¡Mandanos un Mensaje por los Pedidos o un TikTok Message para obtener tu lugar!</p>
+
+            <div class="button-container">
+                <button class="btn_desings">
+                    <a href="pedido.html" >Pedidos</a>
+                </button>
+                <button class="btn_videos">
+                    <a href="https://www.tiktok.com/@tc.desings" target="_blank">Tiktok</a>
+                </button>
+            </div>
+        </section>
+
+        <!-- AQUI AGREGA LO DE LA TABLA -->
+
+        <section class="tabla-espera">
+            <!-- Barra encabezado negra con animación -->
+            <div class="tabla-header-animado">
+                <span class="header-item numero">NÚMERO</span>
+                <span class="header-item nombre">NOMBRE</span>
+                <span class="header-item pedido">PEDIDO</span>
+            </div>
+
+            <div class="tabla-wrapper">
+                <table id="lista-espera">
+                    <tbody>
+                        <!-- Datos cargados dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <script>
+            const sheetID = '1PxpknaMqDRkG7p28JFtHfd126kcw-k8bOVhUSybFsI8';
+            const sheetName = 'Hoja1';
+            const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+
+            fetch(url)
+                .then(res => res.text())
+                .then(rep => {
+                    const data = JSON.parse(rep.substr(47).slice(0, -2));
+                    const table = document.getElementById('lista-espera').getElementsByTagName('tbody')[0];
+                    data.table.rows.forEach(row => {
+                        const newRow = table.insertRow();
+                        newRow.classList.add('tabla-fila');
+                        row.c.forEach(cell => {
+                            const newCell = newRow.insertCell();
+                            const contentDiv = document.createElement('div');
+                            contentDiv.classList.add('celda-contenido');
+                            contentDiv.textContent = cell ? cell.v : '';
+                            newCell.appendChild(contentDiv);
+                            newCell.classList.add('tabla-celda');
+                        });
+                    });
+                })
+                .catch(err => console.error('Error al cargar los datos:', err));
+        </script>
+
+        <!-- Botón de ir hacia arriba -->
+        <div class="go-top-container">
+            <div class="go-top-button">
+                <i class="fa-solid fa-chevron-up"></i>
+            </div>
+        </div>
+
+    </main>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Es el pie de página -->
+<footer class="pie-página">
+    <div class="footer-fila-principal">
+        <!-- Texto Izquierdo -->
+        <div class="footer-texto">
+            <A href="index.html" class="enlace"> <h3 >TC DESIGNS</h3> </A>
+        </div>
+        
+        <!-- Logos Centrales con enlaces -->
+        <div class="footer-logos-clientes">
+            <a href="https://www.instagram.com/fortishats/" target="_blank"><img src="images/Logos/SVG/7.svg" alt="Fortis Hats"></a>
+            <a href="https://www.instagram.com/lthats__/" target="_blank"><img src="images/Logos/SVG/6.svg" alt="LT Hats"></a>
+            <a href="https://www.tiktok.com/@grupofrancocabassi1" target="_blank"><img src="images/Logos/SVG/4.svg" alt="Grupo Franco"></a>
+            <a href="https://www.instagram.com/zitrohatsoficial/" target="_blank"><img src="images/Logos/SVG/2.svg" alt="Zitro Hats"></a>
+            <a href="https://www.instagram.com/gospelhatss/" target="_blank"><img src="images/Logos/SVG/1.svg" alt="Gospel Hats"></a>
+            <a href="https://www.tiktok.com/@moneyhungryoficial" target="_blank"><img src="images/Logos/SVG/3.svg" alt="Money Hungry"></a>
+            <a href="https://www.tiktok.com/@sandro.hats" target="_blank"><img src="images/Logos/SVG/8.svg" alt="Sandro Hats"></a>
+            <a href="https://www.tiktok.com/@thunderhats_" target="_blank"><img src="images/Logos/SVG/9.svg" alt="Thunder Hats"></a>
+            <a href="https://www.instagram.com/culiacaps/" target="_blank"><img src="images/Logos/SVG/10.svg" alt="Culiacaps"></a>
+            <a href="https://www.instagram.com/vagancia_mazatlan/" target="_blank"><img src="images/Logos/SVG/5.svg" alt="Vagancia"></a>
+        </div>
+
+        <!-- Texto Derecho -->
+        <div class="footer-texto">
+            <a href="pedido.html" class="enlace-pedidos"><h3>PEDIDOS</h3></a>
+        </div>
+    </div>
+
+    <!-- Redes Sociales de la marca -->
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings"class="fab fa-tiktok"target="_blank"></a>
+      <a href="https://www.instagram.com/tc_.snap/"class="fab fa-instagram"target="_blank"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <p> <span class="derechos">© 2026 TC Designs by TONYSAll rights reserved.</span></p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/Archivos/Js/Scripts.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+
+    <script>
+       
+    </script>
+</body>
+</html>

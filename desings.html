@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Diseños</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+    <!-- Aquí termina el NAVBAR-->
+
+    <!-- Aquí inicia el diseños principal de la página -->
+
+
+    <main>
+        <!-- SECCIÓN 1: DISEÑO ÚNICO -->
+        <section class="design-section">
+            <div class="design-content">
+                <div class="design-image" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="images/Designs/1.png" alt="Diseño Único">
+                </div>
+                <div class="design-text" data-aos="fade-left" data-aos-duration="1000">
+                    <h1>DISEÑO ÚNICO</h1>
+                    <p>Cada gorra creada cuenta con su identidad propia, gráficos originales basado en sus propias ideas donde cada detalle toma protagonismo para formar una corona hecha realidad.</p>
+                </div>
+            </div>
+            
+            <!-- SLIDER 1 -->
+            <div class="marquee-container" data-aos="fade-up" data-aos-duration="1200">
+                <div class="marquee-track">
+                    <img src="images/Gorras 2D/1.png" alt="Gorra"><img src="images/Gorras 2D/2.png" alt="Gorra"><img src="images/Gorras 2D/3.png" alt="Gorra"><img src="images/Gorras 2D/4.png" alt="Gorra"><img src="images/Gorras 2D/5.png" alt="Gorra"><img src="images/Gorras 2D/6.png" alt="Gorra"><img src="images/Gorras 2D/7.png" alt="Gorra"><img src="images/Gorras 2D/8.png" alt="Gorra"><img src="images/Gorras 2D/9.png" alt="Gorra">
+                    <!-- Repetición Exacta -->
+                    <img src="images/Gorras 2D/1.png" alt="Gorra"><img src="images/Gorras 2D/2.png" alt="Gorra"><img src="images/Gorras 2D/3.png" alt="Gorra"><img src="images/Gorras 2D/4.png" alt="Gorra"><img src="images/Gorras 2D/5.png" alt="Gorra"><img src="images/Gorras 2D/6.png" alt="Gorra"><img src="images/Gorras 2D/7.png" alt="Gorra"><img src="images/Gorras 2D/8.png" alt="Gorra"><img src="images/Gorras 2D/9.png" alt="Gorra">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ATENCIÓN AL DETALLE (Video de fondo) -->
+        <section class="design-section video-section">
+            <video autoplay loop muted playsinline class="bg-video">
+                <source src="optimized videos/2.mp4" type="video/mp4">
+            </video>
+
+            <div class="design-content">
+                <div class="design-text text-left text-white" data-aos="fade-right" data-aos-duration="1000">
+                    <h1>ATENCIÓN AL DETALLE</h1>
+                    <p>Añadimos detalles que elevan la perspectiva de la marca, desde pines metálicos únicos con diseños nunca antes vistos, hasta detalles en pedrería inimaginables.</p>
+                </div>
+                <div class="design-image" data-aos="fade-left" data-aos-duration="1000">
+                    <img src="images/Designs/2.png" alt="Atención al Detalle">
+                </div>
+            </div>
+
+            <!-- SLIDER 2 -->
+            <div class="marquee-container" data-aos="fade-up" data-aos-duration="1200">
+                <div class="marquee-track reverse-track">
+                    <img src="images/Gorras 2D/10.png" alt="Gorra"><img src="images/Gorras 2D/11.png" alt="Gorra"><img src="images/Gorras 2D/12.png" alt="Gorra"><img src="images/Gorras 2D/13.png" alt="Gorra"><img src="images/Gorras 2D/14.png" alt="Gorra"><img src="images/Gorras 2D/15.png" alt="Gorra"><img src="images/Gorras 2D/16.png" alt="Gorra"><img src="images/Gorras 2D/17.png" alt="Gorra"><img src="images/Gorras 2D/18.png" alt="Gorra">
+                    <!-- Repetición Exacta -->
+                    <img src="images/Gorras 2D/10.png" alt="Gorra"><img src="images/Gorras 2D/11.png" alt="Gorra"><img src="images/Gorras 2D/12.png" alt="Gorra"><img src="images/Gorras 2D/13.png" alt="Gorra"><img src="images/Gorras 2D/14.png" alt="Gorra"><img src="images/Gorras 2D/15.png" alt="Gorra"><img src="images/Gorras 2D/16.png" alt="Gorra"><img src="images/Gorras 2D/17.png" alt="Gorra"><img src="images/Gorras 2D/18.png" alt="Gorra">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: INTERIOR PERFECTO -->
+        <section class="design-section">
+            <div class="design-content">
+                <div class="design-image" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="images/Designs/3.png" alt="Interior Perfecto">
+                </div>
+                <div class="design-text" data-aos="fade-left" data-aos-duration="1000">
+                    <h1>INTERIOR PERFECTO</h1>
+                    <p>Personalizamos hasta el más mínimo detalle en la cuestión del interior para resaltar el nombre de la marca en etiquetas, bandas y visera, aparte de lograr acabados increíbles en satines con diseños inigualables.</p>
+                </div>
+            </div>
+            
+            <!-- SLIDER 3 -->
+            <div class="marquee-container" data-aos="fade-up" data-aos-duration="1200">
+                <div class="marquee-track">
+                    <img src="images/Gorras 2D/19.png" alt="Gorra"><img src="images/Gorras 2D/20.png" alt="Gorra"><img src="images/Gorras 2D/21.png" alt="Gorra"><img src="images/Gorras 2D/22.png" alt="Gorra"><img src="images/Gorras 2D/23.png" alt="Gorra"><img src="images/Gorras 2D/24.png" alt="Gorra"><img src="images/Gorras 2D/25.png" alt="Gorra"><img src="images/Gorras 2D/26.png" alt="Gorra"><img src="images/Gorras 2D/27.png" alt="Gorra">
+                    <!-- Repetición Exacta -->
+                    <img src="images/Gorras 2D/19.png" alt="Gorra"><img src="images/Gorras 2D/20.png" alt="Gorra"><img src="images/Gorras 2D/21.png" alt="Gorra"><img src="images/Gorras 2D/22.png" alt="Gorra"><img src="images/Gorras 2D/23.png" alt="Gorra"><img src="images/Gorras 2D/24.png" alt="Gorra"><img src="images/Gorras 2D/25.png" alt="Gorra"><img src="images/Gorras 2D/26.png" alt="Gorra"><img src="images/Gorras 2D/27.png" alt="Gorra">
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Es el pie de página -->
+<footer class="pie-página">
+    <div class="footer-fila-principal">
+        <!-- Texto Izquierdo -->
+        <div class="footer-texto">
+            <A href="index.html" class="enlace"> <h3 >TC DESIGNS</h3> </A>
+        </div>
+        
+        <!-- Logos Centrales con enlaces -->
+        <div class="footer-logos-clientes">
+            <a href="https://www.instagram.com/fortishats/" target="_blank"><img src="images/Logos/SVG/7.svg" alt="Fortis Hats"></a>
+            <a href="https://www.instagram.com/lthats__/" target="_blank"><img src="images/Logos/SVG/6.svg" alt="LT Hats"></a>
+            <a href="https://www.tiktok.com/@grupofrancocabassi1" target="_blank"><img src="images/Logos/SVG/4.svg" alt="Grupo Franco"></a>
+            <a href="https://www.instagram.com/zitrohatsoficial/" target="_blank"><img src="images/Logos/SVG/2.svg" alt="Zitro Hats"></a>
+            <a href="https://www.instagram.com/gospelhatss/" target="_blank"><img src="images/Logos/SVG/1.svg" alt="Gospel Hats"></a>
+            <a href="https://www.tiktok.com/@moneyhungryoficial" target="_blank"><img src="images/Logos/SVG/3.svg" alt="Money Hungry"></a>
+            <a href="https://www.tiktok.com/@sandro.hats" target="_blank"><img src="images/Logos/SVG/8.svg" alt="Sandro Hats"></a>
+            <a href="https://www.tiktok.com/@thunderhats_" target="_blank"><img src="images/Logos/SVG/9.svg" alt="Thunder Hats"></a>
+            <a href="https://www.instagram.com/culiacaps/" target="_blank"><img src="images/Logos/SVG/10.svg" alt="Culiacaps"></a>
+            <a href="https://www.instagram.com/vagancia_mazatlan/" target="_blank"><img src="images/Logos/SVG/5.svg" alt="Vagancia"></a>
+        </div>
+
+        <!-- Texto Derecho -->
+        <div class="footer-texto">
+            <a href="pedido.html" class="enlace-pedidos"><h3>PEDIDOS</h3></a>
+        </div>
+    </div>
+
+    <!-- Redes Sociales de la marca -->
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings"class="fab fa-tiktok"target="_blank"></a>
+      <a href="https://www.instagram.com/tc_.snap/"class="fab fa-instagram"target="_blank"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <p> <span class="derechos">© 2026 TC Designs by TONYSAll rights reserved.</span></p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/Archivos/Js/Scripts.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+</html>
