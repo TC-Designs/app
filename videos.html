@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Videos</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ==============================================
+         SECCIÓN 1: TEXTO Y VIDEO INDIVIDUAL
+         ============================================== -->
+    <section class="video-section-1">
+        <div class="content-wrapper">
+            <div class="text-content" data-aos="fade-right" data-aos-duration="1000">
+                <h1>MILLONES<br>DE VISTAS</h1>
+                <p>A través de las animaciones 3D visibiliza tu marca y llega a rincones inimaginables obteniendo gran difusión de manera orgánica.</p>
+            </div>
+            <div class="video-content" data-aos="fade-left" data-aos-duration="1000">
+                <div class="video-hover-container">
+                    <!-- Video mudo por defecto -->
+                    <video class="video-tc-expandable" autoplay muted loop playsinline >
+                        <source src="optimized videos/1.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================
+         SECCIÓN 2: SLIDER DE VIDEOS INFINITO
+         ============================================== -->
+    <section class="video-section-2">
+        <!-- NUEVO: Doble fondo para hacer el crossfade (transición) -->
+        <div class="bg-video-container">
+            <video id="bg-layer-1" class="bg-video-layer active" muted playsinline loop></video>
+            <video id="bg-layer-2" class="bg-video-layer" muted playsinline loop></video>
+        </div>
+    
+
+
+<div class="slider-wrapper" data-aos="fade-up" data-aos-duration="1200">
+            <!-- Swiper Slider -->
+            <div class="swiper videosSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Videito 1 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 2 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 3 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/7.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 4 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 5 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 6 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/6.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 7 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/7.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- Videito 8 -->
+                    <div class="swiper-slide">
+                        <video class="video-tc-expandable" preload="metadata" autoplay muted loop playsinline>
+                            <source src="optimized videos/5.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                
+                <!-- Flechas Liquid Glass -->
+                <div class="swiper-button-next liquid-glass-nav"></div>
+                <div class="swiper-button-prev liquid-glass-nav"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para cuando dan clic al video -->
+    <div class="video-modal" id="videoModal">
+        <video autoplay controls playsinline></video>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Cargar librería Swiper -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+(function () {
+    var currentBg = 1;
+
+    // ==============================================
+    // 1. FUNCIÓN PARA ACTUALIZAR EL FONDO
+    // ==============================================
+    function updateBackground(isInitial) {
+        if (typeof swiper === "undefined" || !swiper.slides) return;
+
+        var activeSlide = swiper.slides[swiper.activeIndex];
+        if (!activeSlide) return;
+
+        var activeVideo = activeSlide.querySelector('video');
+        if (!activeVideo) return;
+
+        // Extraer fuente del video de forma segura
+        var videoSrc = activeVideo.currentSrc || activeVideo.src;
+        if (!videoSrc) {
+            var sourceTag = activeVideo.querySelector('source');
+            if (sourceTag) videoSrc = sourceTag.src;
+        }
+
+        if (!videoSrc) return;
+
+        var bg1 = document.getElementById('bg-layer-1');
+        var bg2 = document.getElementById('bg-layer-2');
+        if (!bg1 || !bg2) return;
+
+        // CARGA INICIAL: Asigna el primer video (4.mp4) de golpe en la capa 1 sin fade
+        if (isInitial) {
+            bg1.src = videoSrc;
+            bg1.currentTime = activeVideo.currentTime || 0;
+            bg1.classList.add('active');
+            bg2.classList.remove('active');
+            bg1.play().catch(function() {});
+            currentBg = 1;
+            return;
+        }
+
+        // CAMBIOS DE SLIDE POSTERIORES: Transición de Fade normal entre capas
+        var bgToHide = document.getElementById('bg-layer-' + currentBg);
+        var nextBgIndex = currentBg === 1 ? 2 : 1;
+        var bgToShow = document.getElementById('bg-layer-' + nextBgIndex);
+
+        var executeFade = function() {
+            try {
+                bgToShow.currentTime = activeVideo.currentTime || 0;
+            } catch (e) {}
+
+            var playPromise = bgToShow.play();
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    bgToShow.classList.add('active');
+                    bgToHide.classList.remove('active');
+                    currentBg = nextBgIndex;
+                }).catch(function() {
+                    bgToShow.classList.add('active');
+                    bgToHide.classList.remove('active');
+                    currentBg = nextBgIndex;
+                });
+            } else {
+                bgToShow.classList.add('active');
+                bgToHide.classList.remove('active');
+                currentBg = nextBgIndex;
+            }
+        };
+
+        if (bgToShow.src !== videoSrc) {
+            bgToShow.src = videoSrc;
+            bgToShow.load();
+
+            if (bgToShow.readyState >= 2) {
+                executeFade();
+            } else {
+                bgToShow.onloadeddata = function() {
+                    bgToShow.onloadeddata = null;
+                    executeFade();
+                };
+            }
+        } else {
+            executeFade();
+        }
+    }
+
+    // ==============================================
+    // 2. INICIALIZAR SWIPER (Secuencia correcta)
+    // ==============================================
+    var swiper = new Swiper(".videosSwiper", {
+        speed: 600,
+        centeredSlides: true,
+        loop: true,
+        initialSlide: 0, // Asegura que empiece siempre en la posición inicial (4.mp4)
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            0: { slidesPerView: 1.5, spaceBetween: 15 },
+            768: { slidesPerView: 2.5, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 50 },
+        },
+        on: {
+            init: function () {
+                // Reproduce todos los videos
+                document.querySelectorAll('.swiper-slide video').forEach(function(v) {
+                    v.muted = true;
+                    v.play().catch(function() {});
+                });
+                // Forzar sincronización instantánea del fondo con el primer video (4.mp4)
+                updateBackground(true);
+            },
+            slideChange: function() {
+                updateBackground(false);
+            },
+            slideChangeTransitionEnd: function () {
+                document.querySelectorAll('.swiper-slide video').forEach(function(v) {
+                    if (v.paused) {
+                        v.play().catch(function() {});
+                    }
+                });
+            }
+        }
+    });
+
+    // ==============================================
+    // 3. LÓGICA DEL MODAL
+    // ==============================================
+    window.addEventListener("DOMContentLoaded", function() {
+        var modalEl = document.getElementById("videoModal");
+        var modalVideoEl = modalEl ? modalEl.querySelector("video") : null;
+
+        if (modalEl && modalVideoEl) {
+            document.body.addEventListener("click", function(e) {
+                var videoEl = e.target.closest(".video-tc-expandable");
+                if (videoEl) {
+                    var source = videoEl.querySelector("source");
+                    var srcToUse = source ? source.src : (videoEl.currentSrc || videoEl.src);
+                    if (srcToUse) {
+                        modalVideoEl.src = srcToUse;
+                        modalEl.style.display = "flex";
+                        modalVideoEl.play().catch(function() {});
+                        modalVideoEl.muted = false;
+                    }
+                }
+            });
+
+            modalEl.addEventListener("click", function(e) {
+                if (e.target === modalEl) {
+                    modalEl.style.display = "none";
+                    modalVideoEl.pause();
+                    modalVideoEl.src = "";
+                }
+            });
+        }
+    });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <main>
+    
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Es el pie de página -->
+<footer class="pie-página">
+    <div class="footer-fila-principal">
+        <!-- Texto Izquierdo -->
+        <div class="footer-texto">
+            <A href="index.html" class="enlace"> <h3 >TC DESIGNS</h3> </A>
+        </div>
+        
+        <!-- Logos Centrales con enlaces -->
+        <div class="footer-logos-clientes">
+            <a href="https://www.instagram.com/fortishats/" target="_blank"><img src="images/Logos/SVG/7.svg" alt="Fortis Hats"></a>
+            <a href="https://www.instagram.com/lthats__/" target="_blank"><img src="images/Logos/SVG/6.svg" alt="LT Hats"></a>
+            <a href="https://www.tiktok.com/@grupofrancocabassi1" target="_blank"><img src="images/Logos/SVG/4.svg" alt="Grupo Franco"></a>
+            <a href="https://www.instagram.com/zitrohatsoficial/" target="_blank"><img src="images/Logos/SVG/2.svg" alt="Zitro Hats"></a>
+            <a href="https://www.instagram.com/gospelhatss/" target="_blank"><img src="images/Logos/SVG/1.svg" alt="Gospel Hats"></a>
+            <a href="https://www.tiktok.com/@moneyhungryoficial" target="_blank"><img src="images/Logos/SVG/3.svg" alt="Money Hungry"></a>
+            <a href="https://www.tiktok.com/@sandro.hats" target="_blank"><img src="images/Logos/SVG/8.svg" alt="Sandro Hats"></a>
+            <a href="https://www.tiktok.com/@thunderhats_" target="_blank"><img src="images/Logos/SVG/9.svg" alt="Thunder Hats"></a>
+            <a href="https://www.instagram.com/culiacaps/" target="_blank"><img src="images/Logos/SVG/10.svg" alt="Culiacaps"></a>
+            <a href="https://www.instagram.com/vagancia_mazatlan/" target="_blank"><img src="images/Logos/SVG/5.svg" alt="Vagancia"></a>
+        </div>
+
+        <!-- Texto Derecho -->
+        <div class="footer-texto">
+            <a href="pedido.html" class="enlace-pedidos"><h3>PEDIDOS</h3></a>
+        </div>
+    </div>
+
+    <!-- Redes Sociales de la marca -->
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings"class="fab fa-tiktok"target="_blank"></a>
+      <a href="https://www.instagram.com/tc_.snap/"class="fab fa-instagram"target="_blank"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <p> <span class="derechos">© 2026 TC Designs by TONYSAll rights reserved.</span></p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/Archivos/Js/Scripts.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

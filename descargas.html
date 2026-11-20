@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Descargas</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal personalizado -->
+<div id="customAlert" class="modal">
+  <div class="modal-content">
+    <div class="alert-title"></div>
+    <div class="alert-message"></div>
+    <button id="alertBtn">Aceptar</button>
+  </div>
+</div>
+
+
+
+<script>
+(function() {
+  const originalAlert = window.alert;
+
+  window.alert = function(message) {
+    // Aquí defines el título fijo
+    const title = "TC Designs";
+
+    document.querySelector(".alert-title").textContent = title;
+    document.querySelector(".alert-message").textContent = message;
+    document.getElementById("customAlert").style.display = "block";
+
+    document.getElementById("alertBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+  };
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <!-- Aquí inicia el NAVBAR-->
+  <header>
+      <div class="navbar">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="images/Tonys Channel Logo.png" width="60rem" alt="Logo">
+              </a>
+          </div>
+          <ul class="links">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="desings.html">Diseños</a></li>
+              <li><a href="videos.html">Videos</a></li>
+              <li><a href="pedido.html">Pedidos</a></li>
+              <li><a href="descargas.html">Descargas</a></li>
+              <div class="user-info">
+                <div class="user-icon">
+                  <a href="cuenta.html" title="Cuenta de usuario">
+                      <i class="fa-solid fa-circle-user"></i>
+                  </a>
+                </div>
+              </div>
+          </ul>
+          <div class="toggle_btn">
+              <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
+
+      <!-- DROPDOWNMenú Responsive (La cosa que va a dar para abajo)-->
+      <div class="dropdown_menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="desings.html">Diseños</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="pedido.html">Pedidos</a></li>
+            <li><a href="descargas.html">Descargas</a></li>
+          <li class="user-info-mobile">
+            <a href="cuenta.html">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+          </li>
+        
+      </div>
+  </header>
+  <!-- 🔄 Script de Login y lógica -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="auth.js"></script>
+
+  <!-- ✅ Agregado: mostrar el nombre al instante y luego actualizar -->
+  <script>
+    // Mostrar nombre instantáneamente desde localStorage
+    const usernameDesktop = document.getElementById("navbar-username");
+    const usernameMobile = document.getElementById("navbar-username-mobile");
+
+    const savedName = localStorage.getItem("displayName");
+
+    if (savedName) {
+      usernameDesktop.textContent = savedName;
+      usernameMobile.textContent = savedName;
+    }
+
+    // Cuando Firebase esté listo, actualiza el nombre
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email || "Usuario";
+        usernameDesktop.textContent = name;
+        usernameMobile.textContent = name;
+        localStorage.setItem("displayName", name);
+      }
+    });
+  </script>
+
+  <script>
+      const toggleBtn = document.querySelector('.toggle_btn')
+      const toggleBtnIcon = document.querySelector('.toggle_btn i')
+      const dropDownMenu = document.querySelector('.dropdown_menu')
+
+      toggleBtn.onclick = function () {
+        dropDownMenu.classList.toggle('open')
+        const isOpen = dropDownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+      }
+  </script>
+  <!-- Aquí termina el NAVBAR-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <!-- Aquí Chat, agrega lo que necesites, este es como la plantilla para la pagina de descargas y la de registrarse y todas las que quieras hacer aparte del index-->
+
+  <section class="descargas-section">
+    <section id="designs5" data-aos="fade-down" data-aos-duration="1000">
+      <h1>DESCARGA Y EXPLORA</h1>
+    </section>
+
+    <div class="descargas-contenedor" data-aos="fade-up" data-aos-delay="200">
+      
+      <!-- Producto 1 -->
+      <div class="descarga-item bloqueado" data-aos="zoom-in" data-aos-delay="300">
+        <div class="descarga-titulo">NOMAD SCULPT MOCKUP</div>
+        <div class="descarga-imagen">
+          <img src="images/celular2.jpg" alt="Producto" />
+        </div>
+        <a class="btn_download" href="https://drive.google.com/drive/folders/1n5FtuydzkPtPA1YOS4D4gxmujjVcikXz?usp=sharing" target="_blank">Descargar</a>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="descarga-item bloqueado" data-aos="zoom-in" data-aos-delay="400">
+        <div class="descarga-titulo">BLENDER MOCKUP</div>
+        <div class="descarga-imagen">
+          <img src="images/Blender Mockup.png" alt="Producto" />
+        </div>
+        <a id="descargarBtn" class="btn_download" href="https://drive.google.com/file/d/1l-cZqhVEtweedxbrciYIaTIi1dDn1wR5/view?usp=sharing" download target="_blank">Descargar</a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- POPUP -->
+<div id="descargaspopup-container">
+  <div id="descargaspopup-box">
+    <div id="descargaspopup-header">
+      <h2>¡ACCEDE A DESCARGAS!</h2>
+      <i class="fa-solid fa-xmark" id="descargaspopup-close"></i>
+    </div>
+    <div id="descargaspopup-content">
+      <p>Para descargar todo el contenido exclusivo es necesario <strong>iniciar sesión</strong></p>
+      <input type="email" id="descargaspopup-email" class="descargaspopup-input" placeholder="Correo electrónico">
+      <input type="password" id="descargaspopup-password" class="descargaspopup-input" placeholder="Contraseña">
+      <button id="descargaspopup-button">Iniciar sesión</button>
+      <div class="descargaspopup-register">
+        ¿No tienes cuenta? <a id="descargaspopup-register-link">Registrarse</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Configuración Firebase
+  const descargaspopupConfig = {
+    apiKey: "AIzaSyDcv0dRFc7-pcv9m5642A6na-ZZzIbVVbs",
+    authDomain: "tc-designs-f9ed9.firebaseapp.com",
+    projectId: "tc-designs-f9ed9",
+    storageBucket: "tc-designs-f9ed9.firebasestorage.app",
+    messagingSenderId: "938316691839",
+    appId: "1:938316691839:web:db3c90e4fb791a4c6e024a",
+    measurementId: "G-V1DM9EDGSV"
+  };
+  firebase.initializeApp(descargaspopupConfig);
+  const descargaspopupAuth = firebase.auth();
+
+  // Mostrar popup si no hay sesión
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      document.getElementById("descargaspopup-container").style.display = "flex";
+    }
+  });
+
+  // Botón cerrar
+  document.getElementById("descargaspopup-close").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+  // Botón iniciar sesión
+  document.getElementById("descargaspopup-button").addEventListener("click", () => {
+    const email = document.getElementById("descargaspopup-email").value;
+    const password = document.getElementById("descargaspopup-password").value;
+
+    if (!email || !password) {
+      alert("Completa todos los campos.");
+      return;
+    }
+
+    descargaspopupAuth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("Sesión iniciada");
+        document.getElementById("descargaspopup-container").style.display = "none";
+      })
+      .catch(err => {
+        alert("Error al iniciar sesión,\n" + "asegúrate de colocar los datos correctos");
+      });
+  });
+
+  // Link registro
+  document.getElementById("descargaspopup-register-link").addEventListener("click", () => {
+    window.location.href = "registro.html";
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    // Efecto de exposición para botones negros
+    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('mousemove', (e) => {
+        // Se añadieron las clases de los botones liquid glass a la selección
+        const buttons = document.querySelectorAll('.btn_desings, #btnEnviarPedido, .Chatgpt-btn-negro, #popuppedidos-button, #descargaspopup-button, .btn_comprar, .btn_videos, .btn_download, #btnCosto, .switch-btn, .cuenta-btn_desings, .cuenta-btn_videos, #alertBtn');
+        buttons.forEach(btn => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          btn.style.setProperty('--x', `${x}px`);
+          btn.style.setProperty('--y', `${y}px`);
+        });
+      });
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+    <!-- Es el pie de página -->
+<footer class="pie-página">
+    <div class="footer-fila-principal">
+        <!-- Texto Izquierdo -->
+        <div class="footer-texto">
+            <A href="index.html" class="enlace"> <h3 >TC DESIGNS</h3> </A>
+        </div>
+        
+        <!-- Logos Centrales con enlaces -->
+        <div class="footer-logos-clientes">
+            <a href="https://www.instagram.com/fortishats/" target="_blank"><img src="images/Logos/SVG/7.svg" alt="Fortis Hats"></a>
+            <a href="https://www.instagram.com/lthats__/" target="_blank"><img src="images/Logos/SVG/6.svg" alt="LT Hats"></a>
+            <a href="https://www.tiktok.com/@grupofrancocabassi1" target="_blank"><img src="images/Logos/SVG/4.svg" alt="Grupo Franco"></a>
+            <a href="https://www.instagram.com/zitrohatsoficial/" target="_blank"><img src="images/Logos/SVG/2.svg" alt="Zitro Hats"></a>
+            <a href="https://www.instagram.com/gospelhatss/" target="_blank"><img src="images/Logos/SVG/1.svg" alt="Gospel Hats"></a>
+            <a href="https://www.tiktok.com/@moneyhungryoficial" target="_blank"><img src="images/Logos/SVG/3.svg" alt="Money Hungry"></a>
+            <a href="https://www.tiktok.com/@sandro.hats" target="_blank"><img src="images/Logos/SVG/8.svg" alt="Sandro Hats"></a>
+            <a href="https://www.tiktok.com/@thunderhats_" target="_blank"><img src="images/Logos/SVG/9.svg" alt="Thunder Hats"></a>
+            <a href="https://www.instagram.com/culiacaps/" target="_blank"><img src="images/Logos/SVG/10.svg" alt="Culiacaps"></a>
+            <a href="https://www.instagram.com/vagancia_mazatlan/" target="_blank"><img src="images/Logos/SVG/5.svg" alt="Vagancia"></a>
+        </div>
+
+        <!-- Texto Derecho -->
+        <div class="footer-texto">
+            <a href="pedido.html" class="enlace-pedidos"><h3>PEDIDOS</h3></a>
+        </div>
+    </div>
+
+    <!-- Redes Sociales de la marca -->
+    <div class="red-social">
+      <a href="https://www.tiktok.com/@tc.desings"class="fab fa-tiktok"target="_blank"></a>
+      <a href="https://www.instagram.com/tc_.snap/"class="fab fa-instagram"target="_blank"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <p> <span class="derechos">© 2026 TC Designs by TONYSAll rights reserved.</span></p>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="/Archivos/Js/Scripts.js"></script>
+  <script>
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</body>
+</html>
